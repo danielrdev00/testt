@@ -1,4 +1,7 @@
 const express = require("express");
+const OpenAI = require("openai");
+
+const client = new OpenAI();
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -26,9 +29,19 @@ app.post('/', (req, res) => {
   console.log(`\n\nWebhook received ${timestamp}\n`);
   console.log(JSON.stringify(req.body, null, 2));
   res.status(200).end();
+  test();
 });
 
 // Start the server
 app.listen(port, () => {
   console.log(`\nListening on port ${port}\n`);
 });
+
+async function test() {
+  const response = await client.responses.create({
+    model: "gpt-4.1",
+    input: "Write a one-sentence bedtime story about a unicorn."
+  });
+
+  console.log(response.output_text);
+}
