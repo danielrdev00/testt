@@ -29,7 +29,6 @@ app.post('/', (req, res) => {
   console.log(`\n\nWebhook received ${timestamp}\n`);
   console.log(JSON.stringify(req.body, null, 2));
   res.status(200).end();
-  test();
 });
 
 // Start the server
